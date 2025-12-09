@@ -134,7 +134,7 @@ const RegisterPage = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢"
+                    placeholder="Password"
                     className="w-full pl-10 pr-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sport-green focus:border-transparent transition-all text-sm"
                     required
                   />
@@ -152,7 +152,7 @@ const RegisterPage = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢"
+                    placeholder="Password"
                     className="w-full pl-10 pr-2 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sport-green focus:border-transparent transition-all text-sm"
                     required
                   />
