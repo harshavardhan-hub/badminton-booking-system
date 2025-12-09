@@ -1,5 +1,13 @@
 # Badminton Booking System 🏸
 
+## 🌐 Live Deployment
+
+- **Frontend (Vercel):** https://badminton-booking-system-nine.vercel.app/  
+- **Backend (Render):** https://badminton-booking-system-1.onrender.com  
+- **Live Demo Link:** https://badminton-booking-system-nine.vercel.app/
+
+---
+
 Badminton Booking System is a full-stack court reservation platform with pricing intelligence.  
 It is built using a **React + Vite + Tailwind CSS** frontend and a **Node.js + Express + MongoDB** backend.
 
@@ -30,7 +38,7 @@ The system allows users to browse courts, book time slots with optional coaches 
 ### Frontend
 - React  
 - Vite  
-- Tailwind CSS    
+- Tailwind CSS   
 
 ### Backend
 - Node.js  
@@ -151,7 +159,7 @@ Then open:
 
 ---
 
-## 🧱 Database Design 
+## 🧱 Database Design
 
 The application uses MongoDB with Mongoose schemas optimized for bookings, pricing flexibility, and analytics. The important collections include User, Court, Coach, Equipment, Booking, Waitlist, and PricingRule.
 
