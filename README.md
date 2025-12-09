@@ -30,8 +30,7 @@ The system allows users to browse courts, book time slots with optional coaches 
 ### Frontend
 - React  
 - Vite  
-- Tailwind CSS  
-- Recharts  
+- Tailwind CSS    
 
 ### Backend
 - Node.js  
@@ -152,7 +151,7 @@ Then open:
 
 ---
 
-## 🧱 Database Design (350 Words)
+## 🧱 Database Design 
 
 The application uses MongoDB with Mongoose schemas optimized for bookings, pricing flexibility, and analytics. The important collections include User, Court, Coach, Equipment, Booking, Waitlist, and PricingRule.
 
