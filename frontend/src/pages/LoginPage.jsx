@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
+import { Mail, Lock, ArrowRight } from 'lucide-react'
 import useAuth from '../hooks/useAuth'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
@@ -9,12 +9,17 @@ import Card from '../components/common/Card'
 const LoginPage = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
-  const [formData, setFormData] = useState({ email: '', password: '' })
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
   const [loading, setLoading] = useState(false)
-  const [statusMessage, setStatusMessage] = useState('')
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
   }
 
   const handleSubmit = async (e) => {
@@ -22,128 +27,124 @@ const LoginPage = () => {
     
     try {
       setLoading(true)
-      setStatusMessage('Connecting to server...')
-      
-      // Show waking up message after 3 seconds
-      const wakingUpTimer = setTimeout(() => {
-        setStatusMessage('Waking up server (free tier)... Please wait...')
-      }, 3000)
-
       await login(formData)
-      
-      clearTimeout(wakingUpTimer)
       toast.success('Login successful!')
       navigate('/')
     } catch (error) {
-      const errorMsg = error.response?.data?.message || 'Login failed. Please try again.'
-      toast.error(errorMsg)
-      setStatusMessage('')
+      toast.error(error.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Welcome Back!</h2>
-          <p className="mt-2 text-gray-600">Login to book your badminton court</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                disabled={loading}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="your@email.com"
-              />
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md">
+        {/* Logo/Header */}
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center mb-3">
+            <img 
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS764vaFB9SWiSD-9-qr6VT5ZcN1BNzV_rGUQ&s" 
+              alt="Badminton Logo" 
+              className="w-14 h-14 object-contain"
+            />
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                disabled={loading}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
-            </div>
-          </div>
-
-          {loading && statusMessage && (
-            <div className="flex items-center justify-center gap-2 text-sm text-blue-600 bg-blue-50 p-3 rounded-lg">
-              <Loader2 className="animate-spin" size={16} />
-              <span>{statusMessage}</span>
-            </div>
-          )}
-
-          <Button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="animate-spin" size={20} />
-                Logging in...
-              </>
-            ) : (
-              <>
-                Login
-                <ArrowRight size={20} />
-              </>
-            )}
-          </Button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-green-600 hover:text-green-700 font-semibold">
-              Sign up
-            </Link>
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">
+            Welcome Back
+          </h1>
+          <p className="text-sm text-gray-600">
+            Login to book your badminton court
           </p>
         </div>
 
-        <Card className="mt-6 bg-gray-50">
-          <p className="text-sm font-semibold text-gray-700 mb-2">Demo Credentials</p>
-          <div className="space-y-2 text-sm">
+        <Card>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <span className="font-medium text-gray-600">Admin:</span>
-              <p className="text-gray-700">admin@badminton.com</p>
-              <p className="text-gray-700">admin123</p>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sport-green focus:border-transparent transition-all text-sm"
+                  required
+                />
+              </div>
             </div>
-            <div className="mt-2">
-              <span className="font-medium text-gray-600">User:</span>
-              <p className="text-gray-700">john@example.com</p>
-              <p className="text-gray-700">password123</p>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sport-green focus:border-transparent transition-all text-sm"
+                  required
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              variant="success"
+              className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-medium mt-5"
+              disabled={loading}
+            >
+              {loading ? (
+                'Logging in...'
+              ) : (
+                <>
+                  Login
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </Button>
+          </form>
+
+          <div className="mt-4 text-center">
+            <p className="text-xs text-gray-600">
+              Don't have an account?{' '}
+              <Link 
+                to="/register" 
+                className="text-sport-green hover:text-green-700 font-semibold transition-colors"
+              >
+                Sign up
+              </Link>
+            </p>
+          </div>
+
+          {/* Demo Credentials */}
+          <div className="mt-4 p-3 bg-gradient-to-br from-green-50 to-blue-50 border border-green-100 rounded-lg">
+            <p className="text-xs font-semibold text-gray-800 mb-2 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+              Demo Credentials
+            </p>
+            <div className="grid grid-cols-2 gap-2 text-xs text-gray-700">
+              <div className="bg-white bg-opacity-60 p-1.5 rounded">
+                <p className="font-medium text-xs">Admin</p>
+                <p className="text-gray-600 text-[10px]">admin@badminton.com</p>
+                <p className="text-gray-600 text-[10px]">admin123</p>
+              </div>
+              <div className="bg-white bg-opacity-60 p-1.5 rounded">
+                <p className="font-medium text-xs">User</p>
+                <p className="text-gray-600 text-[10px]">john@example.com</p>
+                <p className="text-gray-600 text-[10px]">password123</p>
+              </div>
             </div>
           </div>
-          <p className="text-xs text-yellow-600 mt-2">
-            ⏰ First login may take 30-60 seconds (free server waking up)
-          </p>
         </Card>
-      </Card>
+      </div>
     </div>
   )
 }

@@ -7,7 +7,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json'
   },
-  timeout: 60000 // 60 seconds timeout for Render wake-up
+  timeout: 60000 // 60 seconds timeout
 })
 
 // Request interceptor to add token
@@ -30,7 +30,7 @@ api.interceptors.response.use(
   async (error) => {
     const config = error.config
 
-    // If request timed out or failed, retry up to 3 times
+    // Retry logic
     if (!config || !config.retry) {
       config.retry = 0
     }
@@ -44,11 +44,7 @@ api.interceptors.response.use(
 
     if (shouldRetry) {
       config.retry += 1
-      console.log(`Retrying request... Attempt ${config.retry}/3`)
-      
-      // Wait 2 seconds before retry
       await new Promise(resolve => setTimeout(resolve, 2000))
-      
       return api(config)
     }
 
