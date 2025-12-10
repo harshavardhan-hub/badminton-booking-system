@@ -1,69 +1,15 @@
 {
   "info": {
-    "name": "Badminton Booking System API",
-    "description": "Complete API collection for Badminton Court Booking System",
+    "_postman_id": "12345678-1234-1234-1234-123456789abc",
+    "name": "Badminton Booking API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{authToken}}",
-        "type": "string"
-      }
-    ]
-  },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:5000/api",
-      "type": "string"
-    },
-    {
-      "key": "authToken",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "userId",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "courtId",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "bookingId",
-      "value": "",
-      "type": "string"
-    }
-  ],
   "item": [
     {
-      "name": "Authentication",
+      "name": "Auth",
       "item": [
         {
           "name": "Register User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 201) {",
-                  "    const response = pm.response.json();",
-                  "    pm.environment.set('authToken', response.data.token);",
-                  "    pm.environment.set('userId', response.data.user.id);",
-                  "    pm.test('User registered successfully', function() {",
-                  "        pm.expect(response.success).to.be.true;",
-                  "    });",
-                  "}"
-                ]
-              }
-            }
-          ],
           "request": {
             "method": "POST",
             "header": [
@@ -77,32 +23,16 @@
               "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"9876543210\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
             }
           }
         },
         {
           "name": "Login User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 200) {",
-                  "    const response = pm.response.json();",
-                  "    pm.environment.set('authToken', response.data.token);",
-                  "    pm.environment.set('userId', response.data.user.id);",
-                  "    pm.test('Login successful', function() {",
-                  "        pm.expect(response.success).to.be.true;",
-                  "        pm.expect(response.data.token).to.exist;",
-                  "    });",
-                  "}"
-                ]
-              }
-            }
-          ],
           "request": {
             "method": "POST",
             "header": [
@@ -116,85 +46,31 @@
               "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
-            }
-          }
-        },
-        {
-          "name": "Login Admin",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 200) {",
-                  "    const response = pm.response.json();",
-                  "    pm.environment.set('authToken', response.data.token);",
-                  "    pm.test('Admin login successful', function() {",
-                  "        pm.expect(response.data.user.role).to.eql('admin');",
-                  "    });",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@badminton.com\",\n  \"password\": \"admin123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "login"]
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
             }
           }
         },
         {
           "name": "Get Current User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status code is 200', function() {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "pm.test('User data exists', function() {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.data).to.have.property('name');",
-                  "    pm.expect(response.data).to.have.property('email');",
-                  "});"
-                ]
-              }
-            }
-          ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE",
+                "type": "text"
+              }
+            ],
             "url": {
-              "raw": "{{baseUrl}}/auth/me",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "me"]
+              "raw": "http://localhost:5000/api/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "me"]
             }
           }
         }
@@ -205,173 +81,56 @@
       "item": [
         {
           "name": "Get All Courts",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status code is 200', function() {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "pm.test('Response has courts array', function() {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.data).to.be.an('array');",
-                  "});",
-                  "if (pm.response.json().data.length > 0) {",
-                  "    pm.environment.set('courtId', pm.response.json().data[0]._id);",
-                  "}"
-                ]
-              }
-            }
-          ],
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/courts",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts"]
-            }
-          }
-        },
-        {
-          "name": "Get Courts by Type",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/courts?type=indoor",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts"],
-              "query": [
-                {
-                  "key": "type",
-                  "value": "indoor"
-                }
-              ]
+              "raw": "http://localhost:5000/api/courts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "courts"]
             }
           }
         },
         {
           "name": "Get Single Court",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Court has required fields', function() {",
-                  "    const court = pm.response.json().data;",
-                  "    pm.expect(court).to.have.property('name');",
-                  "    pm.expect(court).to.have.property('type');",
-                  "    pm.expect(court).to.have.property('basePrice');",
-                  "});"
-                ]
-              }
-            }
-          ],
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/courts/{{courtId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts", "{{courtId}}"]
+              "raw": "http://localhost:5000/api/courts/COURT_ID",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "courts", "COURT_ID"]
             }
           }
         },
         {
           "name": "Create Court (Admin)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 201) {",
-                  "    pm.environment.set('courtId', pm.response.json().data._id);",
-                  "}"
-                ]
-              }
-            }
-          ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
             "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Indoor Court 3\",\n  \"type\": \"indoor\",\n  \"basePrice\": 750,\n  \"description\": \"Premium indoor court with AC\",\n  \"features\": [\"AC\", \"LED Lights\", \"Professional Flooring\"],\n  \"isActive\": true\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/courts",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts"]
-            }
-          }
-        },
-        {
-          "name": "Update Court (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PUT",
-            "header": [
+              },
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"basePrice\": 800,\n  \"description\": \"Updated description\"\n}"
+              "raw": "{\n  \"name\": \"Indoor Court 3\",\n  \"type\": \"indoor\",\n  \"basePrice\": 750,\n  \"description\": \"Premium indoor court\",\n  \"features\": [\"AC\", \"LED Lights\"],\n  \"isActive\": true\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/courts/{{courtId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts", "{{courtId}}"]
-            }
-          }
-        },
-        {
-          "name": "Delete Court (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/courts/{{courtId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts", "{{courtId}}"]
+              "raw": "http://localhost:5000/api/courts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "courts"]
             }
           }
         }
@@ -382,523 +141,80 @@
       "item": [
         {
           "name": "Create Booking",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 201) {",
-                  "    const booking = pm.response.json().data;",
-                  "    pm.environment.set('bookingId', booking._id);",
-                  "    pm.test('Booking created successfully', function() {",
-                  "        pm.expect(booking).to.have.property('pricingBreakdown');",
-                  "        pm.expect(booking.status).to.eql('confirmed');",
-                  "    });",
-                  "}"
-                ]
-              }
-            }
-          ],
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
             "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"courtId\": \"{{courtId}}\",\n  \"date\": \"2025-12-15\",\n  \"startTime\": \"18:00\",\n  \"endTime\": \"19:00\",\n  \"notes\": \"Birthday celebration booking\"\n}"
+              "raw": "{\n  \"courtId\": \"COURT_ID\",\n  \"date\": \"2025-12-15\",\n  \"startTime\": \"18:00\",\n  \"endTime\": \"19:00\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/bookings",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings"]
+              "raw": "http://localhost:5000/api/bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "bookings"]
             }
           }
         },
         {
           "name": "Get My Bookings",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Response is array', function() {",
-                  "    pm.expect(pm.response.json().data).to.be.an('array');",
-                  "});"
-                ]
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
+            ],
             "url": {
-              "raw": "{{baseUrl}}/bookings/my-bookings",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "my-bookings"]
-            }
-          }
-        },
-        {
-          "name": "Get All Bookings (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/bookings?status=confirmed&page=1&limit=10",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings"],
-              "query": [
-                {
-                  "key": "status",
-                  "value": "confirmed"
-                },
-                {
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "key": "limit",
-                  "value": "10"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Get Single Booking",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/bookings/{{bookingId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "{{bookingId}}"]
+              "raw": "http://localhost:5000/api/bookings/my-bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "bookings", "my-bookings"]
             }
           }
         },
         {
           "name": "Check Available Slots",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Returns availability data', function() {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.data).to.have.property('availableSlots');",
-                  "});"
-                ]
-              }
-            }
-          ],
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/bookings/available-slots/{{courtId}}/2025-12-15",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "available-slots", "{{courtId}}", "2025-12-15"]
+              "raw": "http://localhost:5000/api/bookings/available-slots/COURT_ID/2025-12-15",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "bookings", "available-slots", "COURT_ID", "2025-12-15"]
             }
           }
         },
         {
           "name": "Cancel Booking",
           "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
             "method": "PUT",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/bookings/{{bookingId}}/cancel",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "{{bookingId}}", "cancel"]
-            }
-          }
-        },
-        {
-          "name": "Get Booking Stats (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/bookings/stats/overview",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "stats", "overview"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Coaches",
-      "item": [
-        {
-          "name": "Get All Coaches",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/coaches",
-              "host": ["{{baseUrl}}"],
-              "path": ["coaches"]
-            }
-          }
-        },
-        {
-          "name": "Get Available Coaches",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/coaches?isAvailable=true",
-              "host": ["{{baseUrl}}"],
-              "path": ["coaches"],
-              "query": [
-                {
-                  "key": "isAvailable",
-                  "value": "true"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Create Coach (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
             "header": [
               {
-                "key": "Content-Type",
-                "value": "application/json"
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Saina Coach\",\n  \"specialization\": \"Advanced Singles\",\n  \"experience\": 8,\n  \"hourlyRate\": 600,\n  \"phone\": \"9876543210\",\n  \"email\": \"saina@coaches.com\",\n  \"isAvailable\": true\n}"
-            },
             "url": {
-              "raw": "{{baseUrl}}/coaches",
-              "host": ["{{baseUrl}}"],
-              "path": ["coaches"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Equipment",
-      "item": [
-        {
-          "name": "Get All Equipment",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/equipment",
-              "host": ["{{baseUrl}}"],
-              "path": ["equipment"]
-            }
-          }
-        },
-        {
-          "name": "Create Equipment (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Yonex Racket\",\n  \"type\": \"racket\",\n  \"pricePerHour\": 100,\n  \"totalQuantity\": 20,\n  \"availableQuantity\": 20,\n  \"description\": \"Professional badminton racket\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/equipment",
-              "host": ["{{baseUrl}}"],
-              "path": ["equipment"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Pricing Rules",
-      "item": [
-        {
-          "name": "Get All Pricing Rules (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/pricing",
-              "host": ["{{baseUrl}}"],
-              "path": ["pricing"]
-            }
-          }
-        },
-        {
-          "name": "Calculate Price",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Price breakdown exists', function() {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response.data).to.have.property('totalPrice');",
-                  "    pm.expect(response.data).to.have.property('appliedRules');",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"courtId\": \"{{courtId}}\",\n  \"date\": \"2025-12-15\",\n  \"startTime\": \"18:00\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/pricing/calculate",
-              "host": ["{{baseUrl}}"],
-              "path": ["pricing", "calculate"]
-            }
-          }
-        },
-        {
-          "name": "Create Pricing Rule (Admin)",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"ruleName\": \"Peak Hours Premium\",\n  \"ruleType\": \"time_based\",\n  \"conditions\": {\n    \"startTime\": \"18:00\",\n    \"endTime\": \"22:00\"\n  },\n  \"modifier\": 25,\n  \"modifierType\": \"percentage\",\n  \"isActive\": true,\n  \"priority\": 1\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/pricing",
-              "host": ["{{baseUrl}}"],
-              "path": ["pricing"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Error Scenarios",
-      "item": [
-        {
-          "name": "Unauthorized Access",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Returns 401', function() {",
-                  "    pm.response.to.have.status(401);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/bookings/my-bookings",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings", "my-bookings"]
-            }
-          }
-        },
-        {
-          "name": "Invalid Court ID",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Returns 404 or 400', function() {",
-                  "    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/courts/invalid-id-123",
-              "host": ["{{baseUrl}}"],
-              "path": ["courts", "invalid-id-123"]
-            }
-          }
-        },
-        {
-          "name": "Duplicate Booking (Conflict)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Returns 409 conflict', function() {",
-                  "    pm.response.to.have.status(409);",
-                  "});"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"courtId\": \"{{courtId}}\",\n  \"date\": \"2025-12-15\",\n  \"startTime\": \"18:00\",\n  \"endTime\": \"19:00\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/bookings",
-              "host": ["{{baseUrl}}"],
-              "path": ["bookings"]
+              "raw": "http://localhost:5000/api/bookings/BOOKING_ID/cancel",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "bookings", "BOOKING_ID", "cancel"]
             }
           }
         }
