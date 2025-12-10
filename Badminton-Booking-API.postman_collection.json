@@ -29,7 +29,8 @@
               "port": "5000",
               "path": ["api", "auth", "register"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Login User",
@@ -52,7 +53,8 @@
               "port": "5000",
               "path": ["api", "auth", "login"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Get Current User",
@@ -61,8 +63,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer YOUR_TOKEN_HERE",
-                "type": "text"
+                "value": "Bearer YOUR_TOKEN_HERE"
               }
             ],
             "url": {
@@ -72,7 +73,8 @@
               "port": "5000",
               "path": ["api", "auth", "me"]
             }
-          }
+          },
+          "response": []
         }
       ]
     },
@@ -91,7 +93,8 @@
               "port": "5000",
               "path": ["api", "courts"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Get Single Court",
@@ -105,7 +108,8 @@
               "port": "5000",
               "path": ["api", "courts", "COURT_ID"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Create Court (Admin)",
@@ -132,7 +136,8 @@
               "port": "5000",
               "path": ["api", "courts"]
             }
-          }
+          },
+          "response": []
         }
       ]
     },
@@ -164,7 +169,8 @@
               "port": "5000",
               "path": ["api", "bookings"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Get My Bookings",
@@ -183,7 +189,8 @@
               "port": "5000",
               "path": ["api", "bookings", "my-bookings"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Check Available Slots",
@@ -197,7 +204,8 @@
               "port": "5000",
               "path": ["api", "bookings", "available-slots", "COURT_ID", "2025-12-15"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Cancel Booking",
@@ -216,7 +224,8 @@
               "port": "5000",
               "path": ["api", "bookings", "BOOKING_ID", "cancel"]
             }
-          }
+          },
+          "response": []
         }
       ]
     }
