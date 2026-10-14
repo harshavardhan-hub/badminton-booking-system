@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const dns = require('dns');
+
+// Fix for Windows / ISP DNS refusing SRV record queries for MongoDB Atlas
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 const User = require('../models/User');
 const Court = require('../models/Court');
 const Coach = require('../models/Coach');
@@ -29,28 +34,28 @@ const seedData = async () => {
 
     console.log('🗑️  Cleared existing data');
 
-    // Create Admin User
+    // Create Admin User with strict password
     const admin = await User.create({
       name: 'Admin User',
       email: 'admin@badminton.com',
-      password: 'admin123',
+      password: 'Admin@Badminton#2026!',
       phone: '+91-9876543210',
       role: 'admin'
     });
 
-    // Create Regular Users
+    // Create Regular Users with strict passwords
     const users = await User.create([
       {
         name: 'John Doe',
         email: 'john@example.com',
-        password: 'password123',
+        password: 'User@Badminton#2026!',
         phone: '+91-9876543211',
         role: 'user'
       },
       {
         name: 'Jane Smith',
         email: 'jane@example.com',
-        password: 'password123',
+        password: 'User@Badminton#2026!',
         phone: '+91-9876543212',
         role: 'user'
       }

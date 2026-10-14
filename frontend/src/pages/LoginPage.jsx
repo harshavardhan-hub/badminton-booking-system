@@ -126,20 +126,37 @@ const LoginPage = () => {
 
           {/* Demo Credentials */}
           <div className="mt-4 p-3 bg-gradient-to-br from-green-50 to-blue-50 border border-green-100 rounded-lg">
-            <p className="text-xs font-semibold text-gray-800 mb-2 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-              Demo Credentials
+            <p className="text-xs font-semibold text-gray-800 mb-2 flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                Demo Credentials (Strict)
+              </span>
+              <span className="text-[10px] text-gray-500 font-normal">Click to autofill</span>
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs text-gray-700">
-              <div className="bg-white bg-opacity-60 p-1.5 rounded">
-                <p className="font-medium text-xs">Admin</p>
-                <p className="text-gray-600 text-[10px]">admin@badminton.com</p>
-                <p className="text-gray-600 text-[10px]">admin123</p>
+              <div 
+                onClick={() => setFormData({ email: 'admin@badminton.com', password: 'Admin@Badminton#2026!' })}
+                className="bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded cursor-pointer border border-transparent hover:border-sport-green transition-all shadow-xs"
+                title="Click to fill Admin credentials"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-xs text-gray-900">Admin</p>
+                  <span className="text-[9px] text-sport-green font-medium">Use</span>
+                </div>
+                <p className="text-gray-600 text-[10px] truncate">admin@badminton.com</p>
+                <p className="text-gray-500 text-[9px] font-mono">Admin@Badminton#2026!</p>
               </div>
-              <div className="bg-white bg-opacity-60 p-1.5 rounded">
-                <p className="font-medium text-xs">User</p>
-                <p className="text-gray-600 text-[10px]">john@example.com</p>
-                <p className="text-gray-600 text-[10px]">password123</p>
+              <div 
+                onClick={() => setFormData({ email: 'john@example.com', password: 'User@Badminton#2026!' })}
+                className="bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded cursor-pointer border border-transparent hover:border-sport-green transition-all shadow-xs"
+                title="Click to fill User credentials"
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-xs text-gray-900">User</p>
+                  <span className="text-[9px] text-sport-green font-medium">Use</span>
+                </div>
+                <p className="text-gray-600 text-[10px] truncate">john@example.com</p>
+                <p className="text-gray-500 text-[9px] font-mono">User@Badminton#2026!</p>
               </div>
             </div>
           </div>
